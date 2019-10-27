@@ -16,22 +16,16 @@
 
 import AVFoundation
 import CoreVideo
-
+import emojidataios
 import Firebase
 
 @objc(CameraViewController)
 class CameraViewController: UIViewController {
   private let detectors: [Detector] = [
-    .onDeviceAutoMLImageLabeler,
-    .onDeviceFace,
     .onDeviceText,
-    .onDeviceObjectProminentNoClassifier,
-    .onDeviceObjectProminentWithClassifier,
-    .onDeviceObjectMultipleNoClassifier,
-    .onDeviceObjectMultipleWithClassifier,
   ]
 
-  private var currentDetector: Detector = .onDeviceFace
+  private var currentDetector: Detector = .onDeviceText
   private var isUsingFrontCamera = true
   private var previewLayer: AVCaptureVideoPreviewLayer!
   private lazy var captureSession = AVCaptureSession()
@@ -39,6 +33,7 @@ class CameraViewController: UIViewController {
   private lazy var vision = Vision.vision()
   private var lastFrame: CMSampleBuffer?
   private lazy var modelManager = ModelManager.modelManager()
+    
   @IBOutlet var downloadProgressView: UIProgressView!
 
   private lazy var previewOverlayView: UIImageView = {
@@ -93,9 +88,9 @@ class CameraViewController: UIViewController {
 
   // MARK: - IBActions
 
-  @IBAction func selectDetector(_ sender: Any) {
-    presentDetectorsAlertController()
-  }
+//  @IBAction func selectDetector(_ sender: Any) {
+//    presentDetectorsAlertController()
+//  }
 
   @IBAction func switchCamera(_ sender: Any) {
     isUsingFrontCamera = !isUsingFrontCamera
@@ -103,90 +98,12 @@ class CameraViewController: UIViewController {
     setUpCaptureSessionInput()
   }
 
-  // MARK: - On-Device AutoML Detections
-
-  private func detectImageLabelsAutoMLOndevice(
-    in visionImage: VisionImage,
-    width: CGFloat,
-    height: CGFloat
-  ) {
-    requestAutoMLRemoteModelIfNeeded()
-
-    let remoteModel = AutoMLRemoteModel(name: Constant.remoteAutoMLModelName)
-    guard
-      let localModelFilePath = Bundle.main.path(
-        forResource: Constant.localModelManifestFileName,
-        ofType: Constant.autoMLManifestFileType
-      )
-    else {
-      print("Failed to find AutoML local model manifest file.")
-      return
-    }
-    let localModel = AutoMLLocalModel(manifestPath:localModelFilePath)
-    let isModelDownloaded = modelManager.isModelDownloaded(remoteModel);
-    let options = isModelDownloaded ?
-      VisionOnDeviceAutoMLImageLabelerOptions(remoteModel: remoteModel) :
-      VisionOnDeviceAutoMLImageLabelerOptions(localModel: localModel)
-    print("Use AutoML \(isModelDownloaded ? "remote" : "local") model in detector picker.")
-    options.confidenceThreshold = Constant.labelConfidenceThreshold
-    let autoMLOnDeviceLabeler = vision.onDeviceAutoMLImageLabeler(options: options)
-    print("labeler: \(autoMLOnDeviceLabeler)\n")
-
-    let group = DispatchGroup()
-    group.enter()
-
-    autoMLOnDeviceLabeler.process(visionImage) { detectedLabels, error in
-      defer { group.leave() }
-
-      self.updatePreviewOverlayView()
-      self.removeDetectionAnnotations()
-
-      if let error = error {
-        print("Failed to detect labels with error: \(error.localizedDescription).")
-        return
-      }
-
-      guard let labels = detectedLabels, !labels.isEmpty else {
-        return
-      }
-
-      let annotationFrame = self.annotationOverlayView.frame
-      let resultsRect = CGRect(
-        x: annotationFrame.origin.x + Constant.padding,
-        y: annotationFrame.size.height - Constant.padding - Constant.resultsLabelHeight,
-        width: annotationFrame.width - 2 * Constant.padding,
-        height: Constant.resultsLabelHeight
-      )
-      let resultsLabel = UILabel(frame: resultsRect)
-      resultsLabel.textColor = .yellow
-      resultsLabel.text = labels.map { label -> String in
-        return "Label: \(label.text), Confidence: \(label.confidence ?? 0)"
-      }.joined(separator: "\n")
-      resultsLabel.adjustsFontSizeToFitWidth = true
-      resultsLabel.numberOfLines = Constant.resultsLabelLines
-      self.annotationOverlayView.addSubview(resultsLabel)
-    }
-
-    group.wait()
-  }
-
   private func requestAutoMLRemoteModelIfNeeded() {
     let remoteModel = AutoMLRemoteModel(name: Constant.remoteAutoMLModelName)
     if (modelManager.isModelDownloaded(remoteModel)) {
       return
     }
-    NotificationCenter.default.addObserver(
-      self,
-      selector: #selector(remoteModelDownloadDidSucceed(_:)),
-      name: .firebaseMLModelDownloadDidSucceed,
-      object: nil
-    )
-    NotificationCenter.default.addObserver(
-      self,
-      selector: #selector(remoteModelDownloadDidFail(_:)),
-      name: .firebaseMLModelDownloadDidFail,
-      object: nil
-    )
+
     DispatchQueue.main.async {
       self.downloadProgressView.isHidden = false
       let conditions = ModelDownloadConditions(
@@ -198,97 +115,6 @@ class CameraViewController: UIViewController {
     }
 
     print("Start downloading AutoML remote model");
-  }
-
-  // MARK: - Notifications
-
-  @objc
-  private func remoteModelDownloadDidSucceed(_ notification: Notification) {
-    let notificationHandler = {
-      self.downloadProgressView.isHidden = true
-      guard let userInfo = notification.userInfo,
-        let remoteModel = userInfo[ModelDownloadUserInfoKey.remoteModel.rawValue] as? RemoteModel
-      else {
-        print(
-          "firebaseMLModelDownloadDidSucceed notification posted without a RemoteModel instance.")
-        return
-      }
-      print(
-        "Successfully downloaded the remote model with name: \(remoteModel.name). The model "
-          + "is ready for detection.")
-    }
-    if Thread.isMainThread { notificationHandler();return }
-    DispatchQueue.main.async { notificationHandler() }
-  }
-
-  @objc
-  private func remoteModelDownloadDidFail(_ notification: Notification) {
-    let notificationHandler = {
-      self.downloadProgressView.isHidden = true
-      guard let userInfo = notification.userInfo,
-        let remoteModel = userInfo[ModelDownloadUserInfoKey.remoteModel.rawValue] as? RemoteModel,
-        let error = userInfo[ModelDownloadUserInfoKey.error.rawValue] as? NSError
-      else {
-        print(
-          "firebaseMLModelDownloadDidFail notification posted without a RemoteModel instance or error."
-        )
-        return
-      }
-      print("Failed to download the remote model with name: \(remoteModel.name), error: \(error).")
-    }
-    if Thread.isMainThread { notificationHandler();return }
-    DispatchQueue.main.async { notificationHandler() }
-  }
-
-  // MARK: Other On-Device Detections
-
-  private func detectFacesOnDevice(in image: VisionImage, width: CGFloat, height: CGFloat) {
-    let options = VisionFaceDetectorOptions()
-
-    // When performing latency tests to determine ideal detection settings,
-    // run the app in 'release' mode to get accurate performance metrics
-    options.landmarkMode = .none
-    options.contourMode = .all
-    options.classificationMode = .none
-
-    options.performanceMode = .fast
-    let faceDetector = vision.faceDetector(options: options)
-
-    var detectedFaces: [VisionFace]? = nil
-    do {
-      detectedFaces = try faceDetector.results(in: image)
-    } catch let error {
-      print("Failed to detect faces with error: \(error.localizedDescription).")
-    }
-    guard let faces = detectedFaces, !faces.isEmpty else {
-      print("On-Device face detector returned no results.")
-      DispatchQueue.main.sync {
-        self.updatePreviewOverlayView()
-        self.removeDetectionAnnotations()
-      }
-      return
-    }
-
-    DispatchQueue.main.sync {
-      self.updatePreviewOverlayView()
-      self.removeDetectionAnnotations()
-      for face in faces {
-        let normalizedRect = CGRect(
-          x: face.frame.origin.x / width,
-          y: face.frame.origin.y / height,
-          width: face.frame.size.width / width,
-          height: face.frame.size.height / height
-        )
-        let standardizedRect = self.previewLayer.layerRectConverted(
-          fromMetadataOutputRect: normalizedRect).standardized
-        UIUtilities.addRectangle(
-          standardizedRect,
-          to: self.annotationOverlayView,
-          color: UIColor.green
-        )
-        self.addContours(for: face, width: width, height: height)
-      }
-    }
   }
 
   private func recognizeTextOnDevice(in image: VisionImage, width: CGFloat, height: CGFloat) {
@@ -305,20 +131,20 @@ class CameraViewController: UIViewController {
       // Blocks.
       for block in text.blocks {
         let points = self.convertedPoints(from: block.cornerPoints, width: width, height: height)
-        UIUtilities.addShape(
-          withPoints: points,
-          to: self.annotationOverlayView,
-          color: UIColor.purple
-        )
+//        UIUtilities.addShape(
+//          withPoints: points,
+//          to: self.annotationOverlayView,
+//          color: UIColor.clear
+//        )
 
         // Lines.
         for line in block.lines {
           let points = self.convertedPoints(from: line.cornerPoints, width: width, height: height)
-          UIUtilities.addShape(
-            withPoints: points,
-            to: self.annotationOverlayView,
-            color: UIColor.orange
-          )
+//          UIUtilities.addShape(
+//            withPoints: points,
+//            to: self.annotationOverlayView,
+//            color: UIColor.clear
+//          )
 
           // Elements.
           for element in line.elements {
@@ -334,72 +160,46 @@ class CameraViewController: UIViewController {
             UIUtilities.addRectangle(
               convertedRect,
               to: self.annotationOverlayView,
-              color: UIColor.green
+              color: UIColor.clear
             )
             let label = UILabel(frame: convertedRect)
-            label.text = element.text
-            label.adjustsFontSizeToFitWidth = true
+            
+            var text = element.text.lowercased()
+            if text == "love" {
+                text = "heart"
+            } else if text == "i" || text == "me" {
+                text = "adult"
+            } else if text == "you" {
+                text = "angel"
+            } else if text == "hit" {
+                text = "punch"
+            } else if text == "ok" {
+                text = "accept"
+            } else if text == "no" {
+                text = "u7121"
+            } else if text == "buzz" || text == "gt" {
+                text = "bee"
+            }
+            var emoji = EmojiParser.parseAliases(":" + text + ":")
+//            if emoji.first == ":" {
+//                emoji = text
+//            }
+//            label.text = emoji
+            //label.text = "😀"
+            //print("element.text")
+            if emoji.first == ":" {
+                label.text = text
+                label.adjustsFontSizeToFitWidth = true
+                label.font = label.font.withSize(50)
+
+            } else {
+                label.text = emoji
+                label.adjustsFontSizeToFitWidth = true
+                label.font = label.font.withSize(100)
+            }
             self.annotationOverlayView.addSubview(label)
           }
         }
-      }
-    }
-  }
-
-  // MARK: Object Detection
-
-  private func detectObjectsOnDevice(
-    in image: VisionImage,
-    width: CGFloat,
-    height: CGFloat,
-    options: VisionObjectDetectorOptions
-  ) {
-    let detector = vision.objectDetector(options: options)
-
-    var detectedObjects: [VisionObject]? = nil
-    do {
-      detectedObjects = try detector.results(in: image)
-    } catch let error {
-      print("Failed to detect object with error: \(error.localizedDescription).")
-      return
-    }
-    guard let objects = detectedObjects, !objects.isEmpty else {
-      print("On-Device object detector returned no results.")
-      DispatchQueue.main.sync {
-        self.updatePreviewOverlayView()
-        self.removeDetectionAnnotations()
-      }
-      return
-    }
-
-    DispatchQueue.main.sync {
-      self.updatePreviewOverlayView()
-      self.removeDetectionAnnotations()
-      for object in objects {
-        let normalizedRect = CGRect(
-          x: object.frame.origin.x / width,
-          y: object.frame.origin.y / height,
-          width: object.frame.size.width / width,
-          height: object.frame.size.height / height
-        )
-        let standardizedRect = self.previewLayer.layerRectConverted(
-          fromMetadataOutputRect: normalizedRect).standardized
-        UIUtilities.addRectangle(
-          standardizedRect,
-          to: self.annotationOverlayView,
-          color: UIColor.green
-        )
-        let label = UILabel(frame: standardizedRect)
-        label.numberOfLines = 2
-        var description = ""
-        if let trackingID = object.trackingID {
-          description = "ID:" + trackingID.stringValue + "\n"
-        }
-        description = description + " Class:\(object.classificationCategory.rawValue)"
-        label.text = description
-
-        label.adjustsFontSizeToFitWidth = true
-        self.annotationOverlayView.addSubview(label)
       }
     }
   }
@@ -517,6 +317,7 @@ class CameraViewController: UIViewController {
       if detectorType.rawValue == currentDetector.rawValue { action.isEnabled = false }
       alertController.addAction(action)
     }
+    
     alertController.addAction(UIAlertAction(title: Constant.cancelActionTitleText, style: .cancel))
     present(alertController, animated: true)
   }
@@ -576,160 +377,6 @@ class CameraViewController: UIViewController {
     return normalizedPoint
   }
 
-  private func addContours(for face: VisionFace, width: CGFloat, height: CGFloat) {
-    // Face
-    if let faceContour = face.contour(ofType: .face) {
-      for point in faceContour.points {
-        let cgPoint = normalizedPoint(fromVisionPoint: point, width: width, height: height)
-        UIUtilities.addCircle(
-          atPoint: cgPoint,
-          to: annotationOverlayView,
-          color: UIColor.blue,
-          radius: Constant.smallDotRadius
-        )
-      }
-    }
-
-    // Eyebrows
-    if let topLeftEyebrowContour = face.contour(ofType: .leftEyebrowTop) {
-      for point in topLeftEyebrowContour.points {
-        let cgPoint = normalizedPoint(fromVisionPoint: point, width: width, height: height)
-        UIUtilities.addCircle(
-          atPoint: cgPoint,
-          to: annotationOverlayView,
-          color: UIColor.orange,
-          radius: Constant.smallDotRadius
-        )
-      }
-    }
-    if let bottomLeftEyebrowContour = face.contour(ofType: .leftEyebrowBottom) {
-      for point in bottomLeftEyebrowContour.points {
-        let cgPoint = normalizedPoint(fromVisionPoint: point, width: width, height: height)
-        UIUtilities.addCircle(
-          atPoint: cgPoint,
-          to: annotationOverlayView,
-          color: UIColor.orange,
-          radius: Constant.smallDotRadius
-        )
-      }
-    }
-    if let topRightEyebrowContour = face.contour(ofType: .rightEyebrowTop) {
-      for point in topRightEyebrowContour.points {
-        let cgPoint = normalizedPoint(fromVisionPoint: point, width: width, height: height)
-        UIUtilities.addCircle(
-          atPoint: cgPoint,
-          to: annotationOverlayView,
-          color: UIColor.orange,
-          radius: Constant.smallDotRadius
-        )
-      }
-    }
-    if let bottomRightEyebrowContour = face.contour(ofType: .rightEyebrowBottom) {
-      for point in bottomRightEyebrowContour.points {
-        let cgPoint = normalizedPoint(fromVisionPoint: point, width: width, height: height)
-        UIUtilities.addCircle(
-          atPoint: cgPoint,
-          to: annotationOverlayView,
-          color: UIColor.orange,
-          radius: Constant.smallDotRadius
-        )
-      }
-    }
-
-    // Eyes
-    if let leftEyeContour = face.contour(ofType: .leftEye) {
-      for point in leftEyeContour.points {
-        let cgPoint = normalizedPoint(fromVisionPoint: point, width: width, height: height)
-        UIUtilities.addCircle(
-          atPoint: cgPoint,
-          to: annotationOverlayView,
-          color: UIColor.cyan,
-          radius: Constant.smallDotRadius
-        )
-      }
-    }
-    if let rightEyeContour = face.contour(ofType: .rightEye) {
-      for point in rightEyeContour.points {
-        let cgPoint = normalizedPoint(fromVisionPoint: point, width: width, height: height)
-        UIUtilities.addCircle(
-          atPoint: cgPoint,
-          to: annotationOverlayView,
-          color: UIColor.cyan,
-          radius: Constant.smallDotRadius
-        )
-      }
-    }
-
-    // Lips
-    if let topUpperLipContour = face.contour(ofType: .upperLipTop) {
-      for point in topUpperLipContour.points {
-        let cgPoint = normalizedPoint(fromVisionPoint: point, width: width, height: height)
-        UIUtilities.addCircle(
-          atPoint: cgPoint,
-          to: annotationOverlayView,
-          color: UIColor.red,
-          radius: Constant.smallDotRadius
-        )
-      }
-    }
-    if let bottomUpperLipContour = face.contour(ofType: .upperLipBottom) {
-      for point in bottomUpperLipContour.points {
-        let cgPoint = normalizedPoint(fromVisionPoint: point, width: width, height: height)
-        UIUtilities.addCircle(
-          atPoint: cgPoint,
-          to: annotationOverlayView,
-          color: UIColor.red,
-          radius: Constant.smallDotRadius
-        )
-      }
-    }
-    if let topLowerLipContour = face.contour(ofType: .lowerLipTop) {
-      for point in topLowerLipContour.points {
-        let cgPoint = normalizedPoint(fromVisionPoint: point, width: width, height: height)
-        UIUtilities.addCircle(
-          atPoint: cgPoint,
-          to: annotationOverlayView,
-          color: UIColor.red,
-          radius: Constant.smallDotRadius
-        )
-      }
-    }
-    if let bottomLowerLipContour = face.contour(ofType: .lowerLipBottom) {
-      for point in bottomLowerLipContour.points {
-        let cgPoint = normalizedPoint(fromVisionPoint: point, width: width, height: height)
-        UIUtilities.addCircle(
-          atPoint: cgPoint,
-          to: annotationOverlayView,
-          color: UIColor.red,
-          radius: Constant.smallDotRadius
-        )
-      }
-    }
-
-    // Nose
-    if let noseBridgeContour = face.contour(ofType: .noseBridge) {
-      for point in noseBridgeContour.points {
-        let cgPoint = normalizedPoint(fromVisionPoint: point, width: width, height: height)
-        UIUtilities.addCircle(
-          atPoint: cgPoint,
-          to: annotationOverlayView,
-          color: UIColor.yellow,
-          radius: Constant.smallDotRadius
-        )
-      }
-    }
-    if let noseBottomContour = face.contour(ofType: .noseBottom) {
-      for point in noseBottomContour.points {
-        let cgPoint = normalizedPoint(fromVisionPoint: point, width: width, height: height)
-        UIUtilities.addCircle(
-          atPoint: cgPoint,
-          to: annotationOverlayView,
-          color: UIColor.yellow,
-          radius: Constant.smallDotRadius
-        )
-      }
-    }
-  }
 }
 
 // MARK: AVCaptureVideoDataOutputSampleBufferDelegate
@@ -757,39 +404,11 @@ extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     visionImage.metadata = metadata
     let imageWidth = CGFloat(CVPixelBufferGetWidth(imageBuffer))
     let imageHeight = CGFloat(CVPixelBufferGetHeight(imageBuffer))
-    var shouldEnableClassification = false
-    var shouldEnableMultipleObjects = false
-    switch currentDetector {
-    case .onDeviceObjectProminentWithClassifier, .onDeviceObjectMultipleWithClassifier:
-      shouldEnableClassification = true
-    default:
-      break
-    }
-    switch currentDetector {
-    case .onDeviceObjectMultipleNoClassifier, .onDeviceObjectMultipleWithClassifier:
-      shouldEnableMultipleObjects = true
-    default:
-      break
-    }
 
     switch currentDetector {
-    case .onDeviceAutoMLImageLabeler:
-      detectImageLabelsAutoMLOndevice(in: visionImage, width: imageWidth, height: imageHeight)
-    case .onDeviceFace:
-      detectFacesOnDevice(in: visionImage, width: imageWidth, height: imageHeight)
     case .onDeviceText:
       recognizeTextOnDevice(in: visionImage, width: imageWidth, height: imageHeight)
-    case .onDeviceObjectProminentNoClassifier, .onDeviceObjectProminentWithClassifier,
-      .onDeviceObjectMultipleNoClassifier, .onDeviceObjectMultipleWithClassifier:
-      let options = VisionObjectDetectorOptions()
-      options.shouldEnableClassification = shouldEnableClassification
-      options.shouldEnableMultipleObjects = shouldEnableMultipleObjects
-      options.detectorMode = .stream
-      detectObjectsOnDevice(
-        in: visionImage,
-        width: imageWidth,
-        height: imageHeight,
-        options: options)
+
     }
   }
 }
@@ -797,13 +416,9 @@ extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
 // MARK: - Constants
 
 public enum Detector: String {
-  case onDeviceAutoMLImageLabeler = "On-Device AutoML Image Labeler"
-  case onDeviceFace = "On-Device Face Detection"
+
   case onDeviceText = "On-Device Text Recognition"
-  case onDeviceObjectProminentNoClassifier = "ODT for prominent object, only tracking"
-  case onDeviceObjectProminentWithClassifier = "ODT for prominent object with classification"
-  case onDeviceObjectMultipleNoClassifier = "ODT for multiple objects, only tracking"
-  case onDeviceObjectMultipleWithClassifier = "ODT for multiple objects with classification"
+
 }
 
 private enum Constant {

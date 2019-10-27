@@ -34,17 +34,18 @@
 		10E1152920F3E09C0013E4A4 /* image_has_text.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7202DC6520D0C1A300034C35 /* image_has_text.jpg */; };
 		10E1152A20F3E09F0013E4A4 /* qr_code.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7202DC6420D0C1A300034C35 /* qr_code.jpg */; };
 		184E68CF2364DBBB007F8009 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 184E68CE2364DBBB007F8009 /* GoogleService-Info.plist */; };
-		25BF99C118D17DA9CFF992C3 /* Pods_MLVisionExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C7AAA5A2950E820E474A1F0 /* Pods_MLVisionExample.framework */; };
+		186579A92365901800B4A618 /* output-onlinejpgtools.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 186579A82365901800B4A618 /* output-onlinejpgtools.jpg */; };
 		7202DC6920D0C1A300034C35 /* qr_code.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7202DC6420D0C1A300034C35 /* qr_code.jpg */; };
 		7202DC6A20D0C1A300034C35 /* image_has_text.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7202DC6520D0C1A300034C35 /* image_has_text.jpg */; };
 		7202DC6B20D0C1A300034C35 /* barcode_128.png in Resources */ = {isa = PBXBuildFile; fileRef = 7202DC6620D0C1A300034C35 /* barcode_128.png */; };
 		7202DC6C20D0C1A300034C35 /* beach.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7202DC6720D0C1A300034C35 /* beach.jpg */; };
+		7C23F0B3445AC7E9E76072A4 /* Pods_MLVisionExampleObjc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A18B922A78645C4EF1E16A9 /* Pods_MLVisionExampleObjc.framework */; };
 		B217D4AB220D24CA001CE5AA /* automl_labeler_labels.txt in Resources */ = {isa = PBXBuildFile; fileRef = B217D4A8220D24C9001CE5AA /* automl_labeler_labels.txt */; };
 		B217D4AC220D24CA001CE5AA /* automl_labeler_manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = B217D4A9220D24CA001CE5AA /* automl_labeler_manifest.json */; };
 		B217D4AD220D24CA001CE5AA /* automl_labeler_model.tflite in Resources */ = {isa = PBXBuildFile; fileRef = B217D4AA220D24CA001CE5AA /* automl_labeler_model.tflite */; };
 		BB287B3920729CE90069707A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB287B3820729CE90069707A /* AppDelegate.swift */; };
 		BB287B3E20729CE90069707A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB287B3C20729CE90069707A /* Main.storyboard */; };
-		FCD72FBF748BB164BD47D20C /* Pods_MLVisionExampleObjc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57E9510384558D127F986A3A /* Pods_MLVisionExampleObjc.framework */; };
+		FE5C3CA40C041DC33BE1BBE9 /* Pods_MLVisionExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DB4B7EEC1371A13224C58C0 /* Pods_MLVisionExample.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,7 +66,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0C7AAA5A2950E820E474A1F0 /* Pods_MLVisionExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLVisionExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		096BB2047769EB63C3F75075 /* Pods-MLVisionExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLVisionExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-MLVisionExample/Pods-MLVisionExample.release.xcconfig"; sourceTree = "<group>"; };
 		1001E6F620CEE0DD00445CB3 /* UIUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIUtilities.swift; sourceTree = "<group>"; };
 		1001E6F820CF021E00445CB3 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		1001E6FC20CF0C8F00445CB3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -91,23 +92,24 @@
 		10E1151620EBF6220013E4A4 /* CameraViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
 		10E1151820EBF7E10013E4A4 /* UIImage+VisionDetection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+VisionDetection.h"; sourceTree = "<group>"; };
 		10E1151920EBF7E10013E4A4 /* UIImage+VisionDetection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+VisionDetection.m"; sourceTree = "<group>"; };
-		11A91B4C0E56E8162D17F77C /* Pods-MLVisionExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLVisionExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-MLVisionExample/Pods-MLVisionExample.release.xcconfig"; sourceTree = "<group>"; };
 		184E68CE2364DBBB007F8009 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		57E9510384558D127F986A3A /* Pods_MLVisionExampleObjc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLVisionExampleObjc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		186579A82365901800B4A618 /* output-onlinejpgtools.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "output-onlinejpgtools.jpg"; sourceTree = "<group>"; };
+		2DB4B7EEC1371A13224C58C0 /* Pods_MLVisionExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLVisionExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A18B922A78645C4EF1E16A9 /* Pods_MLVisionExampleObjc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLVisionExampleObjc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7202DC6420D0C1A300034C35 /* qr_code.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = qr_code.jpg; path = Resources/qr_code.jpg; sourceTree = "<group>"; };
 		7202DC6520D0C1A300034C35 /* image_has_text.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = image_has_text.jpg; path = Resources/image_has_text.jpg; sourceTree = "<group>"; };
 		7202DC6620D0C1A300034C35 /* barcode_128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = barcode_128.png; path = Resources/barcode_128.png; sourceTree = "<group>"; };
 		7202DC6720D0C1A300034C35 /* beach.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = beach.jpg; path = Resources/beach.jpg; sourceTree = "<group>"; };
+		8D9A5E0069C84B4BBFB7D278 /* Pods-MLVisionExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLVisionExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MLVisionExample/Pods-MLVisionExample.debug.xcconfig"; sourceTree = "<group>"; };
+		AE12FBFD2580F70840236F4E /* Pods-MLVisionExampleObjc.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLVisionExampleObjc.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MLVisionExampleObjc/Pods-MLVisionExampleObjc.debug.xcconfig"; sourceTree = "<group>"; };
 		B217D4A8220D24C9001CE5AA /* automl_labeler_labels.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = automl_labeler_labels.txt; path = Resources/automl_labeler_labels.txt; sourceTree = "<group>"; };
 		B217D4A9220D24CA001CE5AA /* automl_labeler_manifest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = automl_labeler_manifest.json; path = Resources/automl_labeler_manifest.json; sourceTree = "<group>"; };
 		B217D4AA220D24CA001CE5AA /* automl_labeler_model.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; name = automl_labeler_model.tflite; path = Resources/automl_labeler_model.tflite; sourceTree = "<group>"; };
-		B45DCD5A04B78272E52AFD73 /* Pods-MLVisionExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLVisionExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MLVisionExample/Pods-MLVisionExample.debug.xcconfig"; sourceTree = "<group>"; };
-		BB287B3520729CE90069707A /* MLVisionExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MLVisionExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB287B3520729CE90069707A /* TextMoji.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TextMoji.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB287B3820729CE90069707A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BB287B3D20729CE90069707A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BB287B4420729CE90069707A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C642559494E580EC552228BF /* Pods-MLVisionExampleObjc.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLVisionExampleObjc.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MLVisionExampleObjc/Pods-MLVisionExampleObjc.debug.xcconfig"; sourceTree = "<group>"; };
-		E4664653468137F09C3F1FB8 /* Pods-MLVisionExampleObjc.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLVisionExampleObjc.release.xcconfig"; path = "Pods/Target Support Files/Pods-MLVisionExampleObjc/Pods-MLVisionExampleObjc.release.xcconfig"; sourceTree = "<group>"; };
+		FE7D65ABFE62046CB70302D4 /* Pods-MLVisionExampleObjc.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLVisionExampleObjc.release.xcconfig"; path = "Pods/Target Support Files/Pods-MLVisionExampleObjc/Pods-MLVisionExampleObjc.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,7 +131,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FCD72FBF748BB164BD47D20C /* Pods_MLVisionExampleObjc.framework in Frameworks */,
+				7C23F0B3445AC7E9E76072A4 /* Pods_MLVisionExampleObjc.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,7 +139,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				25BF99C118D17DA9CFF992C3 /* Pods_MLVisionExample.framework in Frameworks */,
+				FE5C3CA40C041DC33BE1BBE9 /* Pods_MLVisionExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,11 +198,11 @@
 			path = MLVisionExampleObjc;
 			sourceTree = "<group>";
 		};
-		15932F13E06A510287C4381E /* Frameworks */ = {
+		97D3C9B6EF10951570196BF3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0C7AAA5A2950E820E474A1F0 /* Pods_MLVisionExample.framework */,
-				57E9510384558D127F986A3A /* Pods_MLVisionExampleObjc.framework */,
+				2DB4B7EEC1371A13224C58C0 /* Pods_MLVisionExample.framework */,
+				4A18B922A78645C4EF1E16A9 /* Pods_MLVisionExampleObjc.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -215,15 +217,15 @@
 				1036DA362087CC26003253C9 /* MLVisionExampleUITests */,
 				10E114E120E5CBAA0013E4A4 /* MLVisionExampleObjc */,
 				BB287B3620729CE90069707A /* Products */,
-				D9D6CC1E2EB5BCC7340F1215 /* Pods */,
-				15932F13E06A510287C4381E /* Frameworks */,
+				97D3C9B6EF10951570196BF3 /* Frameworks */,
+				C26F23A9C4FABD2BD0B5AE42 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
 		BB287B3620729CE90069707A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BB287B3520729CE90069707A /* MLVisionExample.app */,
+				BB287B3520729CE90069707A /* TextMoji.app */,
 				1036DA272087CC16003253C9 /* MLVisionExampleTests.xctest */,
 				1036DA352087CC25003253C9 /* MLVisionExampleUITests.xctest */,
 				10E114E020E5CBAA0013E4A4 /* MLVisionExampleObjc.app */,
@@ -242,6 +244,7 @@
 				1001E6F820CF021E00445CB3 /* CameraViewController.swift */,
 				BB287B4A2072A0200069707A /* Supporting Files */,
 				BB287B4420729CE90069707A /* Info.plist */,
+				186579A82365901800B4A618 /* output-onlinejpgtools.jpg */,
 			);
 			path = MLVisionExample;
 			sourceTree = "<group>";
@@ -254,13 +257,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		D9D6CC1E2EB5BCC7340F1215 /* Pods */ = {
+		C26F23A9C4FABD2BD0B5AE42 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B45DCD5A04B78272E52AFD73 /* Pods-MLVisionExample.debug.xcconfig */,
-				11A91B4C0E56E8162D17F77C /* Pods-MLVisionExample.release.xcconfig */,
-				C642559494E580EC552228BF /* Pods-MLVisionExampleObjc.debug.xcconfig */,
-				E4664653468137F09C3F1FB8 /* Pods-MLVisionExampleObjc.release.xcconfig */,
+				8D9A5E0069C84B4BBFB7D278 /* Pods-MLVisionExample.debug.xcconfig */,
+				096BB2047769EB63C3F75075 /* Pods-MLVisionExample.release.xcconfig */,
+				AE12FBFD2580F70840236F4E /* Pods-MLVisionExampleObjc.debug.xcconfig */,
+				FE7D65ABFE62046CB70302D4 /* Pods-MLVisionExampleObjc.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -308,12 +311,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 10E1150F20E5CBAE0013E4A4 /* Build configuration list for PBXNativeTarget "MLVisionExampleObjc" */;
 			buildPhases = (
-				D23DA141CCC58704A489C6D2 /* [CP] Check Pods Manifest.lock */,
+				EC94CEF2CE3AA299B9AED2C3 /* [CP] Check Pods Manifest.lock */,
 				10E114DC20E5CBAA0013E4A4 /* Sources */,
 				10E114DD20E5CBAA0013E4A4 /* Frameworks */,
 				10E114DE20E5CBAA0013E4A4 /* Resources */,
-				844C10D1DB9F153C52FF9BB6 /* [CP] Embed Pods Frameworks */,
-				8A11BF18DA757D0255BC8D96 /* [CP] Copy Pods Resources */,
+				E8E0CAD667D71498DE5407CB /* [CP] Embed Pods Frameworks */,
+				63A5481DC14A9F06DA7D2E7B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -328,12 +331,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BB287B4720729CE90069707A /* Build configuration list for PBXNativeTarget "MLVisionExample" */;
 			buildPhases = (
-				7D442F28776A023BB7310C58 /* [CP] Check Pods Manifest.lock */,
+				96968D14E9D2245632C7D4AA /* [CP] Check Pods Manifest.lock */,
 				BB287B3120729CE90069707A /* Sources */,
 				BB287B3220729CE90069707A /* Frameworks */,
 				BB287B3320729CE90069707A /* Resources */,
-				A378DF506E3A7FD527C6012E /* [CP] Embed Pods Frameworks */,
-				53D332192B229C7918489F32 /* [CP] Copy Pods Resources */,
+				61BDC4E7F9EAF84E4C2CFA15 /* [CP] Embed Pods Frameworks */,
+				44588AABA196AB58C7BB3B15 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -341,7 +344,7 @@
 			);
 			name = MLVisionExample;
 			productName = "ml-kit-sampler";
-			productReference = BB287B3520729CE90069707A /* MLVisionExample.app */;
+			productReference = BB287B3520729CE90069707A /* TextMoji.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -447,13 +450,14 @@
 				100D2A50222F37DB00DF5C02 /* automl_labeler_labels.txt in Resources */,
 				1001E6FD20CF0C8F00445CB3 /* Assets.xcassets in Resources */,
 				1077670E210FBBB6007A19A7 /* liberty.jpg in Resources */,
+				186579A92365901800B4A618 /* output-onlinejpgtools.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		53D332192B229C7918489F32 /* [CP] Copy Pods Resources */ = {
+		44588AABA196AB58C7BB3B15 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -473,36 +477,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MLVisionExample/Pods-MLVisionExample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7D442F28776A023BB7310C58 /* [CP] Check Pods Manifest.lock */ = {
+		61BDC4E7F9EAF84E4C2CFA15 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MLVisionExample-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		844C10D1DB9F153C52FF9BB6 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-MLVisionExampleObjc/Pods-MLVisionExampleObjc-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-MLVisionExample/Pods-MLVisionExample-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleAPIClientForREST/GoogleAPIClientForREST.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/emojidataios/emojidataios.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -512,14 +499,15 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/emojidataios.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MLVisionExampleObjc/Pods-MLVisionExampleObjc-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MLVisionExample/Pods-MLVisionExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8A11BF18DA757D0255BC8D96 /* [CP] Copy Pods Resources */ = {
+		63A5481DC14A9F06DA7D2E7B /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -539,18 +527,37 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MLVisionExampleObjc/Pods-MLVisionExampleObjc-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A378DF506E3A7FD527C6012E /* [CP] Embed Pods Frameworks */ = {
+		96968D14E9D2245632C7D4AA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-MLVisionExample/Pods-MLVisionExample-frameworks.sh",
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MLVisionExample-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E8E0CAD667D71498DE5407CB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MLVisionExampleObjc/Pods-MLVisionExampleObjc-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleAPIClientForREST/GoogleAPIClientForREST.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/emojidataios/emojidataios.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -560,14 +567,15 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/emojidataios.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MLVisionExample/Pods-MLVisionExample-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MLVisionExampleObjc/Pods-MLVisionExampleObjc-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D23DA141CCC58704A489C6D2 /* [CP] Check Pods Manifest.lock */ = {
+		EC94CEF2CE3AA299B9AED2C3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -734,7 +742,7 @@
 		};
 		10E1150920E5CBAE0013E4A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C642559494E580EC552228BF /* Pods-MLVisionExampleObjc.debug.xcconfig */;
+			baseConfigurationReference = AE12FBFD2580F70840236F4E /* Pods-MLVisionExampleObjc.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -749,7 +757,7 @@
 		};
 		10E1150A20E5CBAE0013E4A4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E4664653468137F09C3F1FB8 /* Pods-MLVisionExampleObjc.release.xcconfig */;
+			baseConfigurationReference = FE7D65ABFE62046CB70302D4 /* Pods-MLVisionExampleObjc.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -875,7 +883,7 @@
 		};
 		BB287B4820729CE90069707A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B45DCD5A04B78272E52AFD73 /* Pods-MLVisionExample.debug.xcconfig */;
+			baseConfigurationReference = 8D9A5E0069C84B4BBFB7D278 /* Pods-MLVisionExample.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -884,7 +892,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/MLVisionExample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.google.firebase.quickstart.MLVisionExample1018;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TextMoji;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -894,7 +902,7 @@
 		};
 		BB287B4920729CE90069707A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 11A91B4C0E56E8162D17F77C /* Pods-MLVisionExample.release.xcconfig */;
+			baseConfigurationReference = 096BB2047769EB63C3F75075 /* Pods-MLVisionExample.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -903,7 +911,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/MLVisionExample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.google.firebase.quickstart.MLVisionExample1018;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TextMoji;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
